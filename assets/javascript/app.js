@@ -7,23 +7,23 @@ var config = {
     projectId: "tenorwolf-bee4e",
     storageBucket: "tenorwolf-bee4e.appspot.com",
     messagingSenderId: "379852997836"
-  };
+};
 
 
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
 
-  //variable for firebase data
-  var database = firebase.database();
+//variable for firebase data
+var database = firebase.database();
 
-  //Initial variables
-  var name = "";
-  var destination = "";
-  var firstTrain = "";
-  var frequency = 0;
-  //hold this for calculating time of trains' arrival etc.
-  //var currentTime = moment();
+//Initial variables
+var name = "";
+var destination = "";
+var firstTrain = "";
+var frequency = 0;
+//hold this for calculating time of trains' arrival etc.
+//var currentTime = moment();
 
-  database.ref().on("child_added", function(snapshot) {
+database.ref().on("child_added", function (snapshot) {
     // Log everything that's coming out of snapshot
     console.log(snapshot.val());
     console.log(snapshot.val().name);
@@ -31,51 +31,53 @@ var config = {
     console.log(snapshot.val().firstTrain);
     console.log(snapshot.val().frequency);
     // Change the HTML to reflect
-    
+
     $("#add-destination").append(
-        "<tr><td>"   + snapshot.val().name + 
-        "</td><td>"  + snapshot.val().destination +
-        "</td><td>"  +  snapshot.val().frequency +
-        "</td><td>"  +  snapshot.val().firstTrain +
-        "</td></tr>" 
+        "<tr><td>" + snapshot.val().name +
+        "</td><td>" + snapshot.val().destination +
+        "</td><td>" + snapshot.val().frequency +
+        "</td><td>" + snapshot.val().firstTrain +
+        "</td></tr>"
     );
 
 
-   
+
 
     // Handle the errors
-  }, function(errorObject) {
+}, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
-  });
+});
 
-  //add user entry for train info
-  $("#add-train").on("click", function(){
-   event.preventDefault();
+//add user entry for train info
+$("#add-train").on("click", function () {
+    event.preventDefault();
 
-   name = $("#train-name").val().trim();
-   destination = $("#destination").val().trim();
-   firstTrain = $("#train-time").val().trim();
-   frequency = $("#frequency").val().trim();
+    name = $("#train-name").val().trim();
+    destination = $("#destination").val().trim();
+    firstTrain = $("#train-time").val().trim();
+    frequency = $("#frequency").val().trim();
 
-   //Create new object data for new train to be added
+    //Create new object data for new train to be added
 
-   var newTrain = {
-       name: name,
-       destination: destination,
-       firstTrain: firstTrain,
-       frequency: frequency
-   };
+    var newTrain = {
+        name: name,
+        destination: destination,
+        firstTrain: firstTrain,
+        frequency: frequency
+    };
 
-   database.ref().push(newTrain);
+    database.ref().push(newTrain);
 
-   console.log(name);
-   console.log(destination);
-   console.log(firstTrain);
-   console.log(frequency);
+    console.log(name);
+    console.log(destination);
+    console.log(firstTrain);
+    console.log(frequency);
 
-  });
-  
-  
-  
-  
-  
+
+
+});
+
+
+
+
+
