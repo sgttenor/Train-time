@@ -1,0 +1,42 @@
+h1, p { 
+    text-align: center !important;
+    color: #ffffff !important;
+}
+
+
+
+.jumbotron, .btn {
+    background-color: maroon;
+}
+
+body {
+
+    margin-right: 200px;
+    margin-left: 200px;
+}
+
+
+h6 {
+    width: 100%;
+    background-color: lightgrey;
+    height: 50px;
+    padding-top: 15px;
+    border-top-left-radius:  10px;
+    border-top-right-radius:  10px;
+}
+
+
+.container1, .container2 {
+   border-style: solid;
+   border-radius:  10px;
+   border-color: maroon;
+}
+
+label, .input{
+    padding-left: 10px;
+}
+
+.form-control {
+        margin-left: 10px;
+        width: 98%;
+}
