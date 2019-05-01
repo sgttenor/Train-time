@@ -3,9 +3,11 @@ h1, p {
     color: #ffffff !important;
 }
 
+.jumbotron {
+    background-image: url("https://lakecomotravel.com/wp-content/uploads/2018/12/lake-como-train-stations-1200x480.jpg");
+}
 
-
-.jumbotron, .btn {
+ .btn {
     background-color: maroon;
 }
 
@@ -38,5 +40,5 @@ label, .input{
 
 .form-control {
         margin-left: 10px;
-        width: 98%;
+        width:
 }

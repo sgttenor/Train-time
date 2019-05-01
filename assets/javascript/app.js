@@ -14,6 +14,12 @@ var config = {
 
   //variable for firebase data
   var database = firebase.database();
+
+  //Initial variables
+  var name = "";
+  var destination = "";
+  var firstTrain = "";
+  var frequency = 0;
   //hold this for calculating time of trains' arrival etc.
   //var currentTime = moment();
 
@@ -25,10 +31,17 @@ var config = {
     console.log(snapshot.val().firstTrain);
     console.log(snapshot.val().frequency);
     // Change the HTML to reflect
-    $("#name-display").text(snapshot.val().name);
-    $("#email-display").text(snapshot.val().destination);
-    $("#age-display").text(snapshot.val().firstTrain);
-    $("#comment-display").text(snapshot.val().frequency);
+    
+    $("#add-destination").append(
+        "<tr><td>"   + snapshot.val().name + 
+        "</td><td>"  + snapshot.val().destination +
+        "</td><td>"  +  snapshot.val().frequency +
+        "</td><td>"  +  snapshot.val().firstTrain +
+        "</td></tr>" 
+    );
+
+
+   
 
     // Handle the errors
   }, function(errorObject) {
@@ -47,10 +60,10 @@ var config = {
    //Create new object data for new train to be added
 
    var newTrain = {
-       "Train Name": name,
-       "Destination": destination,
-       "First Train Time": firstTrain,
-       "Frequency": frequency
+       name: name,
+       destination: destination,
+       firstTrain: firstTrain,
+       frequency: frequency
    };
 
    database.ref().push(newTrain);
