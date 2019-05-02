@@ -31,16 +31,49 @@ database.ref().on("child_added", function (snapshot) {
     console.log(snapshot.val().firstTrain);
     console.log(snapshot.val().frequency);
     // Change the HTML to reflect
+    
+   
+    var tFrequency = snapshot.val().frequency;
+
+    // Time is 3:30 AM
+    var firstTime = snapshot.val().firstTrain;
+    
+    //New Train time(pushed back 1 yearto make sure it comes before current time)
+    var firstTrain = moment(firstTime, "hh:mm").subtract(1, "years");
+    console.log(firstTrain);
+    
+    //current time
+    var currentTime = moment().format("hh:mm");
+    console.log("current Time: " + moment(currentTime).format("hh:mm"));
+    
+     // Difference between the times
+     var diffTime = moment().diff(moment(firstTrain), "minutes");
+     console.log("DIFFERENCE IN TIME: " + diffTime);
+ 
+     // Time apart (remainder)
+     var tRemainder = diffTime % tFrequency;
+     console.log(tRemainder);
+ 
+     // Minute Until Train
+     var minAway = tFrequency - tRemainder;
+     console.log("MINUTES TILL TRAIN: " + minAway);
+ 
+     // Next Train
+     var nextTrain = moment().add(minAway, "minutes").format("hh:mm");;
+     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+    
 
     $("#add-destination").append(
         "<tr><td>" + snapshot.val().name +
         "</td><td>" + snapshot.val().destination +
         "</td><td>" + snapshot.val().frequency +
-        "</td><td>" + snapshot.val().firstTrain +
-        "</td></tr>"
+        "</td><td>" + nextTrain +
+        "</td><td>" + minAway +
+        "</td></td>"
     );
 
-
+   
 
 
     // Handle the errors
@@ -49,7 +82,7 @@ database.ref().on("child_added", function (snapshot) {
 });
 
 //add user entry for train info
-$("#add-train").on("click", function () {
+$("#add-train").on("click", function (event) {
     event.preventDefault();
 
     name = $("#train-name").val().trim();
@@ -72,7 +105,11 @@ $("#add-train").on("click", function () {
     console.log(destination);
     console.log(firstTrain);
     console.log(frequency);
-
+    // clear text after submit
+    $("#train-name").val("");
+    $("#destination").val("");
+    $("#train-time").val("");
+    $("#frequency").val("");
 
 
 });
